@@ -1,17 +1,19 @@
 # Smashy!
-=======
+==========
 
 ### About
-
+==========
 Smashy! is a breakout clone written in Love2D.  I wrote it in a weekend as a submission for Lawless Jam (http://reddit.com/r/lawlessjam).
 
 ### Controls
+=============
 * The mouse controls the paddle and left clicking will fire the ball.
 * Escape - Exit/Pause
 * Enter - Start/Unpause
 * F11 - Toggle Fullscreen
 
 ### Credits
+============
 Included audio track is Obeck - Clazzic, found on http://soundcloud.com.
 Included menu audio is unused, but something I wrote a few months back.
 The sound effects were made with my mouth and Audacity.
