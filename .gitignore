@@ -4,5 +4,8 @@ doc/
 screenshots/
 artwork/
 Smashy-win64/
+Smashy-win32/
+Smashy-mac/
 love-0.9.1-win64/
-
+love-0.9.1-win32/
+love-0.9.1-macosx-x64/
