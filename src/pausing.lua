@@ -48,7 +48,7 @@ function pausing:draw()
     
 end
 
-function pausing:keyreleased(key)
+function pausing:keypressed(key)
 
     if key == 'escape' then
         Gamestate.switch(titlescreen)

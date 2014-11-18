@@ -65,6 +65,6 @@ function winning:keyreleased(key)
     end
 end
 
-function winning:mousepressed(x,y)
+function winning:mousereleased(x,y)
 	button_click(x, y)
 end
