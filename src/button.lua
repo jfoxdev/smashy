@@ -51,11 +51,10 @@ end
 
 function button_click(x, y)
 	for i,v in ipairs(button) do
-		if x > v.x and
-		x < v.x + medium:getWidth(v.text) and
-		y > v.y and
-		y < v.y + medium:getHeight() then
-		
+		if x > (v.x * screen.scale_x) and
+		x < (v.x * screen.scale_x) + (medium:getWidth(v.text) * screen.scale_x) and
+		y > (v.y * screen.scale_y) and
+		y < (v.y * screen.scale_y) + (medium:getHeight() * screen.scale_y) then		
 			if v.id == "new" then 
 				Gamestate.switch(level)
 			end
@@ -82,11 +81,11 @@ function button_click(x, y)
 end
 
 function button_hover(x, y)
-	for i,v in ipairs(button) do
-		if x > v.x and
-		x < v.x + medium:getWidth(v.text) and
-		y > v.y and
-		y < v.y + medium:getHeight() then 
+	for i,v in ipairs(button) do	
+		if x > (v.x * screen.scale_x) and
+		x < (v.x * screen.scale_x) + (medium:getWidth(v.text) * screen.scale_x) and
+		y > (v.y * screen.scale_y) and
+		y < (v.y * screen.scale_y) + (medium:getHeight() * screen.scale_y) then
 			v.color = color_on
 		
 		else 

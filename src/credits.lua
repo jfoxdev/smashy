@@ -20,8 +20,10 @@ function credits:draw()
 	love.graphics.setColor(255,255,255)
     love.graphics.draw(credits.background, 0, 0)
 end
-function credits:keyreleased(key)
-    if key == 'escape' then
-        love.event.quit()
-    end
+
+function credits:keypressed(key)
+	love.event.quit()
+end
+function credits:mousepressed(x,y)
+	love.event.quit()
 end

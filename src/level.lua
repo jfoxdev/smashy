@@ -180,13 +180,6 @@ function level:draw()
 	--powerup.draw()
 end
 
-function level:keyreleased(key)
-    if key == 'escape' then
-        --Gamestate.switch(titlescreen) --TODO: change to pause
-        Gamestate.push(pausing)
-    end
-end
-
 function level:loadGrid(filename)
 
 	if not love.filesystem.exists("data/grids/"..filename) then 
@@ -338,12 +331,18 @@ function level:randomizeGrid()
 
 end
 
-function level:mousepressed(x,y)
+function level:keypressed(key)
+    if key == 'escape' then
+        Gamestate.push(pausing)
+    end
+end
+
+function level:mousereleased(x,y)
 	self.ball:fire()
 end
 
 function level:mouse_move(x, y)
-	self.paddle.body:setX(x)
+	self.paddle.body:setX(x / screen.scale_x)
 	--paddle.body:setIntertia( 0)
 end
 
@@ -378,15 +377,17 @@ function beginContact(a, b, coll)
     a_data = a:getUserData()
     b_data = b:getUserData()
     
-  --	print("Level beginContact: "..a_data.type.."->"..b_data.type)  
-  --	print("Level beginContact: "..a_data.value.."->"..b_data.value)  
+    local x1, y1, x2, y2 = coll:getPositions()		
+
     
 	if a_data.type == "Brick" then
-  --	print("Brick Collision!")
-		--make brick inactive
-		--a:getBody():setActive(false)
-		level:destroyBrick(a_data.value)		
-
+	--	print("Brick Collision!")
+		level:destroyBrick(a_data.value)
+				
+		pshape = a:getShape()
+		x_bounce = (((a:getBody():getX() + (2 * pshape:getRadius())) - x1 ) - (pshape:getRadius()))
+		y_bounce = (((a:getBody():getY() + (2 * pshape:getRadius())) - y1 ) - (pshape:getRadius()))
+		b:getBody():applyLinearImpulse(x_bounce, y_bounce)
 	end
 		
     if a_data.type  == "Paddle" then
@@ -395,20 +396,16 @@ function beginContact(a, b, coll)
 		if level.ball_fired	and game.combo < 4 then
 			game.combo = game.combo + 1
 		end
-		
-		local x1, y1, x2, y2 = coll:getPositions()		
-		--print("(x1,y1): ".."("..x1..","..y1..")")
 
 		pshape = a:getShape()
 		x_bounce = (((a:getBody():getX() + (2 * pshape:getRadius())) - x1 ) - (pshape:getRadius())) / 10
-		--print("x_bounce: "..x_bounce)
+
 		if level.ball_fired then
 			sounds.pop:play()
 			b:getBody():applyLinearImpulse(x_bounce, 10)
 		end
     end  	
      
-     --if a:getUserData() == "Ball" then   end 
     
 end
 
@@ -421,16 +418,6 @@ function preSolve(a, b, coll)
 end
 
 function postSolve(a, b, coll, normalimpulse1, tangentimpulse1, normalimpulse2, tangentimpulse2)
-    x,y = coll:getNormal()
-    a_data = a:getUserData()
-    b_data = b:getUserData()
-    --print("Level postSolve: "..a_data.type.."->"..b_data.type)  
-    --print("Level postSolve: "..a_data.value.."->"..b_data.value)  
-    
-    if a:getUserData() == "Paddle" then
-		--print("Paddle Post Collision!")
-    end  
-
     
     
 end

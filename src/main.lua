@@ -5,7 +5,9 @@ require "titlescreen"
 require "level"
 require "credits"
 
-
+screen = {}
+screen.scale_x = love.window.getWidth() / 1024 
+screen.scale_y = love.window.getHeight() / 768
 
 ambience = {}
 ambience.rain= nil
@@ -52,10 +54,6 @@ function love.load()
 	love.graphics.setColor(255,255,255)
 
 	-- Start Music
-	
-	Gamestate.registerEvents()
-	Gamestate.switch(titlescreen)
-	
 	sounds.pop:setVolume(0)
 	sounds.smash:setVolume(0)
 	
@@ -63,7 +61,9 @@ function love.load()
 	game.track:setVolume(0.9)
 	game.track:setLooping(true)
 	game.track:play()
-
+	
+	Gamestate.registerEvents()
+	Gamestate.switch(titlescreen)
 
 end
 
@@ -77,10 +77,16 @@ end
 
 function love.draw()
 
+    love.graphics.scale(screen.scale_x, screen.scale_y)
 
  	Gamestate.draw()
 
     
+end
+
+function love.resize()
+	screen.scale_x = love.window.getWidth() / 1024 
+	screen.scale_y = love.window.getHeight() / 768
 end
 
 function love.quit()	
@@ -90,7 +96,7 @@ function love.quit()
 end
 
 
-function love.keyreleased(key)
+function love.keypressed(key)
 	
 	if key == "f11" then
 		if love.window.getFullscreen() then

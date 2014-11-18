@@ -82,7 +82,7 @@ function titlescreen:draw()
     
 end
 
-function titlescreen:keyreleased(key)
+function titlescreen:keypressed(key)
     if key == 'return' then
         --Gamestate.switch(new_level)
         Gamestate.switch(level)
@@ -92,6 +92,6 @@ function titlescreen:keyreleased(key)
     end
 end
 
-function titlescreen:mousepressed(x,y)
+function titlescreen:mousereleased(x,y)
 	button_click(x, y)
 end
