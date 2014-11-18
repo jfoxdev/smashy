@@ -1,6 +1,8 @@
 Gamestate = require "hump.gamestate"
 Timer = require "hump.timer"
+HS = require "sick"
 
+require "highscores"
 require "titlescreen"
 require "level"
 require "credits"
@@ -40,7 +42,7 @@ game.power_mod = 1
 game.speed_mod = 1
 game.size_mod = 1
 game.track = nil
-
+game.highscores = {}
 
 function love.conf(t)
     t.window.width = 1024 -- t.screen.width in 0.8.0 and earlier
@@ -52,6 +54,11 @@ function love.load()
 	print("Audio Track:  Oreck - Clazzic")
 	--love.graphics.setBackgroundColor(255,255,255)
 	love.graphics.setColor(255,255,255)
+	
+	game.highscores = HS.set("highscores", 10, "Smashalot", 250)
+
+
+
 
 	-- Start Music
 	sounds.pop:setVolume(0)
@@ -89,8 +96,8 @@ function love.resize()
 	screen.scale_y = love.window.getHeight() / 768
 end
 
-function love.quit()	
-	
+function love.quit()		
+	HS.save()
 	game.track:stop()
 	print("Did you have a Smashy time?")
 end

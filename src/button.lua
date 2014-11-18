@@ -12,6 +12,14 @@ function button_spawn(x, y, text, id)
 
 end
 
+function clear_all_buttons()
+	for i,v in ipairs(button) do
+		v = nil
+	end
+	
+	button = nil
+	button = {}
+end
 
 function button_update(dt)
    
@@ -61,12 +69,19 @@ function button_click(x, y)
 			if v.id == "quit" then 
 				Gamestate.switch(credits)
 			end			
+			if v.id == "highscores" then 
+				Gamestate.switch(highscores)
+			end			
 			
 			if v.id == "next" then 
 				Gamestate.switch(level)
 			end
 			
 			if v.id == "title" then 
+				Gamestate.switch(titlescreen)
+			end
+			
+			if v.id == "back" then 
 				Gamestate.switch(titlescreen)
 			end
 			

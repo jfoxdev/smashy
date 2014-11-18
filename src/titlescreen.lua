@@ -1,3 +1,4 @@
+require "highscores"
 require "level"
 require "credits"
 require "button"
@@ -37,8 +38,9 @@ function titlescreen:enter()
 		play_text = "Continue"
 	end ]]
 
-	button_spawn(600,500, "New Smashy!", "new")
-	button_spawn(600,600, "Quit", "quit")
+	button_spawn(650,450, "New Smashy!", "new")
+	button_spawn(650,550, "Highscores", "highscores")
+	button_spawn(650,650, "Quit", "quit")
 	
 	titlescreen.cursor = love.mouse.newCursor( love.image.newImageData("data/cursor.png"), 0, 0 )
 	love.mouse.setCursor(titlescreen.cursor)
@@ -49,10 +51,15 @@ function titlescreen:enter()
 end
 
 function titlescreen:resume()
+	button_spawn(650,500, "New Smashy!", "new")
+	button_spawn(650,600, "Highscores", "highscores")
+	button_spawn(650,700, "Quit", "quit")
+	
 	love.mouse.setVisible(true)
 end
 
 function titlescreen:leave()
+	clear_all_buttons()
 	self.world:destroy()
 end
 
@@ -78,6 +85,7 @@ function titlescreen:draw()
 	   
     --button_draw()
     button_draw_id("new")
+    button_draw_id("highscores")
     button_draw_id("quit")
     
 end
@@ -87,8 +95,13 @@ function titlescreen:keypressed(key)
         --Gamestate.switch(new_level)
         Gamestate.switch(level)
     end
+    
     if key == 'escape' then
         Gamestate.switch(credits)
+    end
+    
+    if key == 'f1' then
+        Gamestate.switch(highscores)
     end
 end
 

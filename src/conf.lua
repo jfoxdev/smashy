@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.identity = nil                   -- The name of the save directory (string)
+    t.identity = "smashy"                  -- The name of the save directory (string)
     t.console = false                  -- Attach a console (boolean, Windows only)
 
     t.window.title = "Smashy!"        -- The window title (string)
