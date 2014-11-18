@@ -19,11 +19,16 @@ function winning:enter()
 end
 
 function winning:resume()
+	button_spawn(200,400, "Next Smashy!", "next")
+	button_spawn(700,400, "Quit", "title")	
+	love.mouse.setVisible(true)
 
 end
 
 function winning:leave()
-	
+	love.mouse.setVisible(false)
+	clear_all_buttons()
+
 end
 
 
