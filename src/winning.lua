@@ -15,6 +15,11 @@ function winning:enter()
 	button_spawn(200,400, "Next Smashy!", "next")
 	button_spawn(700,400, "Quit", "title")
 	
+	local name = os.date("%x %I:%M:%S %p", os.time())
+	HS.add(name, game.score)
+	HS.save()
+
+	
 	love.mouse.setVisible(true)
 end
 
@@ -28,7 +33,7 @@ end
 function winning:leave()
 	love.mouse.setVisible(false)
 	clear_all_buttons()
-
+	
 end
 
 

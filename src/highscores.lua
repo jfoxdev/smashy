@@ -1,6 +1,5 @@
 highscores = {}
 
-
 record = {}
 record.id = nil
 record.score = nil
@@ -9,13 +8,14 @@ record.playtime = nil
 record.round = nil
 record.date = nil
 
-
 credits = {}
 
+normal_font = love.graphics.newFont(32)
 
 function highscores:enter()
-    love.graphics.setColor(0,0,0)
-    credits.background = love.graphics.newImage("data/highscores.png")	
+    love.graphics.setBackgroundColor(0,0,0)	
+    love.graphics.setColor(255,255,255)
+    highscores.background = love.graphics.newImage("data/highscores.png")	
     button_spawn(890,700, "Back", "back")
 
 	love.mouse.setVisible( true )
@@ -25,6 +25,7 @@ end
 function highscores:leave()
 	clear_all_buttons()
 	love.mouse.setVisible(false)
+	
 end
 
 
@@ -36,9 +37,11 @@ end
 
 function highscores:draw()	
 	love.graphics.setColor(255,255,255)
-    love.graphics.draw(credits.background, 0, 0)	
+    love.graphics.draw(highscores.background, 0, 0)	
     
     button_draw_id("back")
+	
+    show_records(50, 150)
 
 end
 
@@ -56,45 +59,20 @@ end
 
 
 
-
-
-
-
 function show_records(x,y)
-	--open data/highscores
-	local file = love.filesystem.newFile("data/highscores")
-	file:open("r")
-	data = file:read()
-	-- read all into array
-	for line in love.filesystem.lines("data/highscores") do
-		table.insert(highscores, line)
+	love.graphics.setFont(normal_font)
+	love.graphics.setColor(240,255,0)
+
+	for i, score, timestamp in highscore() do	
+		love.graphics.setColor(240,255,0)		
+		love.graphics.print(i..")", x, y + (normal_font:getHeight() * i))		
+		love.graphics.setColor(200,255,200)
+		love.graphics.print(timestamp, x+150, y + (normal_font:getHeight() * i))	
+		love.graphics.setColor(240,255,0)		
+		love.graphics.print(score, x + 600, y + (normal_font:getHeight() * i))
 	end
-	-- print records to screen at x,y
-	
-	--close file
-	file:close()
+
 end
 
 
-function save_record(score, smashes, playtime, round)
-	--open data/highscores
-	local file = love.filesystem.newFile("data/highscores")
-	file:open("rw")
-	data = file:read()
-	-- read all into array
-	for line in love.filesystem.lines("data/highscores") do
-		table.insert(highscores, line)
-	end
-	-- insert score
-	
-	
-	
-	-- keep top 10 scores
-	
-	-- write file
-	--for i = 0, #highscores do
-	--	f:write()
-	--end	
-	--close file
-	file:close()
-end
+
